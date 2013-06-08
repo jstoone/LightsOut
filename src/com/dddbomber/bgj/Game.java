@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.dddbomber.bgj.assets.Asset;
+import com.dddbomber.bgj.assets.MP3;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Room;
@@ -101,7 +102,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static Image icon;
 	
-	public static void main(String[] args){ 
+	public static void main(String[] args){
+		MP3.main(args);
 		Game game = new Game();
 		JFrame frame = new JFrame(NAME);
 		JPanel panel = new JPanel(new BorderLayout());

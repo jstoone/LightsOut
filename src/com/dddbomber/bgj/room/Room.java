@@ -13,7 +13,8 @@ public class Room {
 	public static int w = 20, h = 13;
 	public int[] tiles = new int[w * h];
 	
-	public int playerX = 100, playerY = 100, mouseX, mouseY;
+	public int mouseX, mouseY;
+	public Player player;
 
 	public ArrayList<Light> lights = new ArrayList<Light>();
 	public ArrayList<LightHandler> lightHandlers = new ArrayList<LightHandler>();
@@ -28,8 +29,8 @@ public class Room {
 			tiles[y*w] = Tile.back.id;
 			tiles[19+y*w] = Tile.back.id;
 		}
-		
-		entities.add(new Player());
+		player = new Player();
+		entities.add(player);
 	}
 	
 	public void render(Screen screen){
