@@ -8,6 +8,7 @@ public class Tile {
 	
 	public static Tile testTile = new ComplexTile(0);
 	public static Tile air = new Tile();
+	public static Tile back = new ComplexTile(2);
 	
 	public int id;
 	

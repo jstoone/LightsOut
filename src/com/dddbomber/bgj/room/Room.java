@@ -15,10 +15,22 @@ public class Room {
 	
 	public ArrayList<Light> lights = new ArrayList<Light>();
 	
-	public void render(Screen screen){
-		tiles[46] = 1;
-		tiles[47] = 1;
+	public Room(){
+		tiles[66] = 1;
 		tiles[67] = 1;
+		tiles[87] = 1;
+
+		for(int x = 0; x < w; x++){
+			tiles[x] = 2;
+			tiles[x+12*w] = 2;
+		}
+		for(int y = 0; y < h; y++){
+			tiles[y*w] = 2;
+			tiles[19+y*w] = 2;
+		}
+	}
+	
+	public void render(Screen screen){
 		for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
             	Tile t = getTile(x, y);
@@ -42,7 +54,7 @@ public class Room {
 	}
 
 	public Tile getTile(int xt, int yt) {
-		if(xt >= w || yt >= h || xt < 0 || yt < 0)return Tile.air;
+		if(xt >= w || yt >= h || xt < 0 || yt < 0)return Tile.back;
 		return Tile.get(tiles[xt + yt * w]);
 	}
 
