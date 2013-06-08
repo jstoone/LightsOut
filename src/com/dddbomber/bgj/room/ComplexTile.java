@@ -11,15 +11,25 @@ public class ComplexTile extends Tile{
 	}
 	
 	public void render(Screen screen, Room room, int xt, int yt){
-		boolean u = room.getTile(xt, yt-1) != this,
-				d = room.getTile(xt, yt+1) != this, 
-				l = room.getTile(xt-1, yt) != this, 
-				r = room.getTile(xt+1, yt) != this;
+		Tile ut = room.getTile(xt, yt-1),
+			 dt = room.getTile(xt, yt+1),
+			 lt = room.getTile(xt-1, yt),
+			 rt = room.getTile(xt+1, yt);
 
-		boolean ul = room.getTile(xt-1, yt-1) != this,
-				ur = room.getTile(xt+1, yt-1) != this, 
-				dl = room.getTile(xt-1, yt+1) != this, 
-				dr = room.getTile(xt+1, yt+1) != this;
+		Tile ult = room.getTile(xt-1, yt-1),
+			 urt = room.getTile(xt+1, yt-1),
+			 dlt = room.getTile(xt-1, yt+1),
+			 drt = room.getTile(xt+1, yt+1);
+		
+		boolean u = ut != this && !ut.isDec,
+				d = dt != this && !dt.isDec, 
+				l = lt != this && !lt.isDec, 
+				r = rt != this && !rt.isDec;
+
+		boolean ul = ult != this && !ult.isDec,
+				ur = urt != this && !urt.isDec, 
+				dl = dlt != this && !dlt.isDec, 
+				dr = drt != this && !drt.isDec;
 
 		if(l && r){
 			if(u){

@@ -8,7 +8,7 @@ public class Tile {
 	
 	public static Tile testTile = new ComplexTile(0);
 	public static Tile back = new ComplexTile(2).setSolid();
-    public static Tile lightOn = new LightTile().setSolid();
+    public static Tile lightOn = new LightTile().setSolid().setDec();
 	
 	public int id;
 	
@@ -16,14 +16,20 @@ public class Tile {
 		this.id = idToGive;
 		tiles[idToGive++] = this;
 	}
-	
+
 	public Tile setSolid(){
 		this.solid = true;
 		return this;
 	}
 	
-	public boolean solid = false;
+	public Tile setDec(){
+		this.isDec = true;
+		return this;
+	}
 	
+	public boolean solid = false;
+	public boolean isDec;
+
 	public boolean isSolid(){
 		return solid;
 	}
