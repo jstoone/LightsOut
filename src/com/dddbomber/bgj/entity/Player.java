@@ -2,6 +2,7 @@ package com.dddbomber.bgj.entity;
 
 import java.awt.event.KeyEvent;
 
+import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
@@ -26,7 +27,7 @@ public class Player extends Entity{
 	public void render(Screen screen, Room room){
 		double angleTo = Math.atan2(room.mouseX - x+8, room.mouseY - y+8);
 		
-		Bitmap b = new Bitmap(32, 32);
+		/*Bitmap b = new Bitmap(32, 32);
 		b.fill(0, 0, 32, 32, -2, 100);
 		b.fill(6, 12, 4, 20, 0x00bcbc, 100);
 		
@@ -36,7 +37,10 @@ public class Player extends Entity{
 		b.fill(0, 0, 16, 16, -2, 100);
 		b.fill(0, 2, 16, 12, 0xbcbc00, 100);
 		
-		screen.drawRotated(b, x, y, 0, 0, 16, 16, (int)(Math.toDegrees(angleTo)));
+		screen.drawRotated(b, x, y, 0, 0, 16, 16, (int)(Math.toDegrees(angleTo)));*/
+
+		screen.drawRotated(Asset.player, x-8, y-8, 32, 0, 32, 32, (int)(Math.toDegrees(angleTo)));
+		screen.drawRotated(Asset.player, x-8, y-8, 0, 0, 32, 32, (int)(Math.toDegrees(angleTo)));
 		
 		room.lights.add(new Light(x+8, y+8, 32));
 		for(int io = 0; io < 10; io++){
