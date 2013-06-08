@@ -7,8 +7,7 @@ public class Tile {
 	public static Tile[] tiles = new Tile[24];
 	
 	public static Tile testTile = new ComplexTile(0);
-	public static Tile air = new Tile();
-	public static Tile back = new ComplexTile(2);
+	public static Tile back = new ComplexTile(2).setSolid();
 	
 	public int id;
 	
@@ -17,8 +16,15 @@ public class Tile {
 		tiles[idToGive++] = this;
 	}
 	
+	public Tile setSolid(){
+		this.solid = true;
+		return this;
+	}
+	
+	public boolean solid = false;
+	
 	public boolean isSolid(){
-		return false;
+		return solid;
 	}
 	
 	public void render(Screen screen, Room room, int xt, int yt){

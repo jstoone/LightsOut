@@ -20,12 +20,12 @@ public class Room {
 	
 	public Room(){
 		for(int x = 0; x < w; x++){
-			tiles[x] = 2;
-			tiles[x+12*w] = 2;
+			tiles[x] = Tile.back.id;
+			tiles[x+12*w] = Tile.back.id;
 		}
 		for(int y = 0; y < h; y++){
-			tiles[y*w] = 2;
-			tiles[19+y*w] = 2;
+			tiles[y*w] = Tile.back.id;
+			tiles[19+y*w] = Tile.back.id;
 		}
 		
 		entities.add(new Player());
