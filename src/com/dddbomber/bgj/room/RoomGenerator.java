@@ -37,7 +37,10 @@ public class RoomGenerator {
                 room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.spawnTile.id;
             }
         }
-
+        for(int y = 0; y < 3; y++){
+            room.tiles[xo-1+(y + yo)*Room.w] = Tile.back.id;
+            room.tiles[xo+3+(y + yo)*Room.w] = Tile.back.id;
+        }
 		return room;
 	}
 }
