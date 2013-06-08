@@ -31,7 +31,13 @@ public class Player extends Entity{
 		if(input.mouse.left && shootDelay == 0){
 			shootDelay = 20;
 			double angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
-			room.entities.add(new Bullet((int)x-1, (int)y-1, Math.sin(angleTo)*5, Math.cos(angleTo)*5, Math.toDegrees(angleTo)));
+
+            int m = 16 - 24;
+            int n = 40 - 24;
+            int j = ((int) (m * Math.cos(angleTo) + n * Math.sin(angleTo))) + 24;
+            int k = ((int) (n * Math.cos(angleTo) - m * Math.sin(angleTo))) + 24;
+            
+			room.entities.add(new Bullet((int)x+j-22, (int)y+k-22, Math.sin(angleTo)*5, Math.cos(angleTo)*5, Math.toDegrees(angleTo)));
 		}
 		
 		if(ox == (int) x && oy == (int) y)return;

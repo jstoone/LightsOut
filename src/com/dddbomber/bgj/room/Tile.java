@@ -12,6 +12,9 @@ public class Tile {
     public static Tile lightOff = new LightTile(false).setSolid().setDec();
 	public static Tile tank = new TankTile(0).setSolid().setDec();
     public static Tile spawnTile = new SpawnTile();
+    
+
+    public static Tile teleporter = new TeleporterTile();
 
 	public int id;
 	

@@ -1,5 +1,7 @@
 package com.dddbomber.bgj.entity;
 
+import java.awt.Rectangle;
+
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.LightHandler;
@@ -10,6 +12,14 @@ public class Entity {
 	public double x, y;
 	public int xSize, ySize;
 	public boolean removed = false;
+	
+	public int health = 25;
+	
+	public boolean intersects(Entity e){
+		Rectangle tr = new Rectangle((int)x, (int)y, xSize, ySize);
+		Rectangle er = new Rectangle((int)e.x, (int)e.y, e.xSize, e.ySize);
+		return tr.intersects(er);
+	}
 	
 	public void tick(InputHandler input, Room room){
 		
@@ -37,5 +47,12 @@ public class Entity {
 			}
 		}
 		return canPass;
+	}
+
+	public void damage(double xSpeed, double ySpeed) {
+		if(health > 0){
+			health--;
+			if(health == 0)removed = true;
+		}
 	}
 }

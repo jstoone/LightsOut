@@ -34,9 +34,10 @@ public class RoomGenerator {
         } else if(corner == 3){
             yo = Room.h - 4;
         }
+        
         for(int x = 0; x < 3; x++){
             for(int y = 0; y < 3; y++){
-                room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.spawnTile.id;
+                room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.teleporter.id;
             }
         }
         for(int y = 0; y < 3; y++){

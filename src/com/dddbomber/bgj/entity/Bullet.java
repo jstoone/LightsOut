@@ -25,8 +25,20 @@ public class Bullet extends Entity{
 		if(canPass(room, xSpeed, ySpeed)){
 			x += xSpeed;
 			y += ySpeed;
+			for(Entity e : room.entities){
+				if(!this.removed){
+					if(e instanceof Enemy){
+						if(this.intersects(e)){
+							e.damage(xSpeed, ySpeed);
+							removed = true;
+						}
+					}
+				}
+			}
 		}else{
 			removed = true;
+		}
+		if(removed){
 			room.entities.add(new BulletHit((int)x-2, (int)y-2));
 		}
 	}
