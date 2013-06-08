@@ -15,7 +15,7 @@ public class RoomGenerator {
 			room.tiles[i + 1 + yo * Room.w] = Tile.back.id;
 		}
 
-        room.tiles[66] = Tile.lightOn.id;
+        room.tiles[66] = Tile.lightOff.id;
 		return room;
 	}
 }

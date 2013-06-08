@@ -51,8 +51,8 @@ public class Player extends Entity{
 		screen.drawRotated(Asset.player, (int)x-8, (int)y-8, 0, 0, 32, 32, (int)(Math.toDegrees(angleTo)));
 		
 		room.lights.add(new Light((int)x+8, (int)y+8, 32));
-		for(int io = 0; io < 10; io++){
-			room.lights.add(new Light((int) (x+8+Math.sin(angleTo)*25*io), (int) (y+8+Math.cos(angleTo)*25*io), io*10+8));
+		for(int io = 0; io < 8; io++){
+			room.lights.add(new Light((int) (x+8+Math.sin(angleTo)*20*io), (int) (y+8+Math.cos(angleTo)*20*io), io*5+10));
 		}
 	}
 }

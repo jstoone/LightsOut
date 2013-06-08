@@ -16,6 +16,7 @@ public class Room {
 	public int playerX = 100, playerY = 100, mouseX, mouseY;
 
 	public ArrayList<Light> lights = new ArrayList<Light>();
+	public ArrayList<LightHandler> lightHandlers = new ArrayList<LightHandler>();
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public Room(){
@@ -68,5 +69,13 @@ public class Room {
 				entities.remove(i--);
 			}
 		}
+
+        for(int i = 0; i < lightHandlers.size(); i++){
+            LightHandler lh = lightHandlers.get(i);
+            lh.tick(this);
+            if(lh.time == 0){
+                lightHandlers.remove(i--);
+            }
+        }
 	}
 }
