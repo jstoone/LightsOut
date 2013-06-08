@@ -16,7 +16,7 @@ public class BulletHit extends Entity{
 	public int anim = 0;
 
 	public void tick(InputHandler input, Room room){
-		if(anim < 14){
+		if(anim < 8){
 			anim++;
 		}else{
 			removed = true;
@@ -25,6 +25,6 @@ public class BulletHit extends Entity{
 	
 	public void render(Screen screen, Room room){
 		screen.draw(Asset.bulletHit, (int) x, (int) y, anim/5*16, 0, 16, 16);
-		room.lights.add(new Light((int)x+8, (int)y+8, -anim));
+		room.lights.add(new Light((int)x+8, (int)y+8, -anim*2));
 	}
 }
