@@ -6,18 +6,38 @@ public class RoomGenerator {
 	public static Room getBasicRoom(){
 		Random random = new Random();
 		Room room = new Room();
-		int xo = random.nextInt(9)+Room.w/2-4;
-		for(int i = 0; i < 2+random.nextInt(3); i++){
-			room.tiles[xo + (i+1) * Room.w] = Tile.back.id;
-		}
-		int yo = random.nextInt(7)+Room.h/2-3;
-		for(int i = 0; i < 2+random.nextInt(3); i++){
-			room.tiles[i + 1 + yo * Room.w] = Tile.back.id;
-		}
+		int corner = random.nextInt(4);
 
-        room.tiles[106] = Tile.tank.id;
-        room.tiles[107] = Tile.tank.id;
-        room.tiles[108] = Tile.tank.id;
+        if(corner == 0){
+            room.player.x = 52;
+            room.player.y = 52;
+        } else if(corner == 1){
+            room.player.x = 52+15*24;
+            room.player.y = 52;
+        } else if(corner == 2){
+            room.player.x = 52+15*24;
+            room.player.y = 52+8*24;
+        } else if(corner == 3){
+            room.player.x = 52;
+            room.player.y = 52+8*24;
+        }
+
+        int xo = 1;
+        int yo = 1;
+        if(corner == 1){
+            xo = Room.w - 4;
+        } else if(corner == 2){
+            xo = Room.w - 4;
+            yo = Room.h - 4;
+        } else if(corner == 3){
+            yo = Room.h - 4;
+        }
+        for(int x = 0; x < 3; x++){
+            for(int y = 0; y < 3; y++){
+                room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.spawnTile.id;
+            }
+        }
+
 		return room;
 	}
 }

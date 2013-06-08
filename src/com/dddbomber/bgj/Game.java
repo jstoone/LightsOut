@@ -103,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 	public static Image icon;
 	
 	public static void main(String[] args){
-		MP3.main(args);
+		//MP3.main(args);
 		Game game = new Game();
 		JFrame frame = new JFrame(NAME);
 		JPanel panel = new JPanel(new BorderLayout());
