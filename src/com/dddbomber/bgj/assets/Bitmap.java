@@ -15,7 +15,7 @@ public class Bitmap {
 	
 	public static Bitmap font = AssetLoader.loadBitmap("/chars.png");
 	
-	private int[] lightFX = new int[] { 0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5, };
+	public static int[] lightFX = new int[] { 0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5, };
 
 	public void overlay(Bitmap bitmap, int xa, int ya, int col, int trans) {
 		int[] oPixels = bitmap.pixels;

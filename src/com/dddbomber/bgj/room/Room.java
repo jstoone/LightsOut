@@ -43,12 +43,12 @@ public class Room {
 			e.render(screen, this);
 		}
 		
-		for(int i = 0; i < 3; i++){
+		for(int i = 0; i < 2; i++){
 			Bitmap b = new Bitmap(screen.width, screen.height);
 			for(Light l : lights){
 				b.renderLight(l.x, l.y , l.rad+i*32);
 			}
-			screen.overlay(b, 0, 0, 0, i*10+30);
+			screen.overlay(b, 0, 0, 0, i*20+50);
 		}
 		lights.clear();
 	}

@@ -20,8 +20,24 @@ public class ComplexTile extends Tile{
 				ur = room.getTile(xt+1, yt-1) != this, 
 				dl = room.getTile(xt-1, yt+1) != this, 
 				dr = room.getTile(xt+1, yt+1) != this;
-		
-		if(u){
+
+		if(l && r){
+			if(u){
+				screen.draw(Asset.tiles, xt*24, yt*24, 72, tex, 24, 24);
+			}else if(d){
+				screen.draw(Asset.tiles, xt*24, yt*24, 72, tex+48, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 72, tex+24, 24, 24);
+			}
+		}else if(u && d){
+			if(l){
+				screen.draw(Asset.tiles, xt*24, yt*24, 96, tex+48, 24, 24);
+			}else if(r){
+				screen.draw(Asset.tiles, xt*24, yt*24, 144, tex+48, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 120, tex+48, 24, 24);
+			}
+		}else if(u){
 			if(l){
 				screen.draw(Asset.tiles, xt*24, yt*24, 0, tex, 24, 24);
 			}else if(r){
@@ -42,13 +58,29 @@ public class ComplexTile extends Tile{
 		}else if(r){
 			screen.draw(Asset.tiles, xt*24, yt*24, 48, 24+tex, 24, 24);
 		}else if(ul){
-			screen.draw(Asset.tiles, xt*24, yt*24, 120, 24+tex, 24, 24);
+			if(ur){
+				screen.draw(Asset.tiles, xt*24, yt*24, 192, 24, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 120, 24+tex, 24, 24);
+			}
 		}else if(ur){
-			screen.draw(Asset.tiles, xt*24, yt*24, 96, 24+tex, 24, 24);
-		}else if(dl){
-			screen.draw(Asset.tiles, xt*24, yt*24, 120, tex, 24, 24);
+			if(dr){
+				screen.draw(Asset.tiles, xt*24, yt*24, 216, tex, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 96, 24+tex, 24, 24);
+			}
 		}else if(dr){
-			screen.draw(Asset.tiles, xt*24, yt*24, 96, tex, 24, 24);
+			if(dl){
+				screen.draw(Asset.tiles, xt*24, yt*24, 216, tex+24, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 96, tex, 24, 24);
+			}
+		}else if(dl){
+			if(ul){
+				screen.draw(Asset.tiles, xt*24, yt*24, 192, tex+24, 24, 24);
+			}else{
+				screen.draw(Asset.tiles, xt*24, yt*24, 120, tex, 24, 24);
+			}
 		}else{
 			screen.draw(Asset.tiles, xt*24, yt*24, 24, 24+tex, 24, 24);
 		}
