@@ -98,7 +98,11 @@ public class Room {
 
 		if(enemies == 0){
 			if(time % 2 == 0){
-				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter)player.teleportDelay--;
+				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter){
+					player.teleportDelay--;
+				}else if(player.teleportDelay < 100){
+					player.teleportDelay++;
+				}
 				if(player.teleportDelay <= 0){
 					roomFinished = true;
 				}
