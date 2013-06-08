@@ -14,6 +14,7 @@ import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Room;
+import com.dddbomber.bgj.room.RoomGenerator;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -61,7 +62,7 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
-	Room room = new Room();
+	Room room = RoomGenerator.getBasicRoom();
 
 	private void render() {
 		renders++;

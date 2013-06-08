@@ -19,10 +19,6 @@ public class Room {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public Room(){
-		tiles[66] = 1;
-		tiles[67] = 1;
-		tiles[87] = 1;
-
 		for(int x = 0; x < w; x++){
 			tiles[x] = 2;
 			tiles[x+12*w] = 2;
