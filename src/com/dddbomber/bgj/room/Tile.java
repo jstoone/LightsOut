@@ -8,6 +8,7 @@ public class Tile {
 	
 	public static Tile testTile = new ComplexTile(0);
 	public static Tile back = new ComplexTile(2).setSolid();
+    public static Tile lightOn = new LightTile().setSolid();
 	
 	public int id;
 	

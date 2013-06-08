@@ -14,7 +14,8 @@ public class RoomGenerator {
 		for(int i = 0; i < 2+random.nextInt(3); i++){
 			room.tiles[i + 1 + yo * Room.w] = Tile.back.id;
 		}
-		
+
+        room.tiles[66] = Tile.lightOn.id;
 		return room;
 	}
 }
