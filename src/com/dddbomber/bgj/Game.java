@@ -10,6 +10,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 
@@ -69,8 +70,12 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
+		for(int i = 0; i < 20; i++){
+			for(int y = 0; y < 13; y++){
+				screen.draw(Asset.tiles, i*24, y*24, (i == 0 ? 0 : i == 19 ? 48 : 24), (y == 0 ? 0 : y == 12 ? 48 : 24), 24, 24);
+			}
+		}
 		
-
 		if(!input.focus.hasFocus){
 			screen.fill(0, 0, WIDTH, HEIGHT, 0, 50);
 			String msg = "CLICK TO FOCUS";
