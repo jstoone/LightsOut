@@ -18,8 +18,21 @@ public class Player extends Entity{
 	}
 	
 	public int shootDelay, anim, animDelay;
+	public double angleTo;
+	
+	public int teleportDelay = 0;
+	public boolean starting = true;
 	
 	public void tick(InputHandler input, Room room){
+		if(starting){
+			if(room.time % 2 == 0)teleportDelay++;
+			if(teleportDelay == 100){
+				starting = false;
+			}
+		}
+		
+		angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
+		
 		int ox = (int) x;
 		int oy = (int) y;
 		
@@ -50,13 +63,11 @@ public class Player extends Entity{
 	}
 	
 	public void render(Screen screen, Room room){
-		double angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
-
-		screen.drawRotated(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)));
+		screen.drawRotatedTrans(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)), teleportDelay);
 		
 		room.lights.add(new Light((int)x+8, (int)y+8, 32));
 		for(int io = 0; io < 8; io++){
-			room.lights.add(new Light((int) (x+8+Math.sin(angleTo)*20*io), (int) (y+8+Math.cos(angleTo)*20*io), io*5+10));
+			room.lights.add(new Light((int) (x+8+Math.sin(angleTo)*20*io*teleportDelay*0.01), (int) (y+8+Math.cos(angleTo)*20*io*teleportDelay*0.01), io*5+10-(100-teleportDelay)/2));
 		}
 	}
 }

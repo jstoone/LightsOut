@@ -10,12 +10,9 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.dddbomber.bgj.assets.Asset;
-import com.dddbomber.bgj.assets.MP3;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
-import com.dddbomber.bgj.room.Room;
-import com.dddbomber.bgj.room.RoomGenerator;
+import com.dddbomber.bgj.menu.Menu;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -62,8 +59,6 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
-	Room room = RoomGenerator.getBasicRoom();
 
 	private void render() {
 		renders++;
@@ -75,12 +70,12 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		room.render(screen);
+		Menu.getMenu().render(screen);
 		
 		if(!input.focus.hasFocus){
 			screen.fill(0, 0, WIDTH, HEIGHT, 0, 50);
 			String msg = "CLICK TO FOCUS";
-			screen.draw(msg, 280-msg.length()*7, 100, 0xffffff, 2);
+			screen.draw(msg, 240-msg.length()*7, 100, 0xffffff, 2);
 		}
 		
 		
@@ -96,8 +91,7 @@ public class Game extends Canvas implements Runnable{
 	private void tick() {
 		ticks++;
 		if(!input.focus.hasFocus)return;
-		room.tick(input);
-		
+		Menu.getMenu().tick(input);
 	}
 	
 	public static Image icon;

@@ -17,18 +17,29 @@ public class TeleporterTile extends Tile {
 				d = dt != this, 
 				l = lt != this, 
 				r = rt != this;
-
-		if(u && l)screen.draw(Asset.tiles, xt*24, yt*24, 0, 288, 24, 24);
-		else if(u && r)screen.draw(Asset.tiles, xt*24, yt*24, 48, 288, 24, 24);
-		else if(u)screen.draw(Asset.tiles, xt*24, yt*24, 24, 288, 24, 24);
-
-		else if(d && l)screen.draw(Asset.tiles, xt*24, yt*24, 0, 336, 24, 24);
-		else if(d && r)screen.draw(Asset.tiles, xt*24, yt*24, 48, 336, 24, 24);
-		else if(d)screen.draw(Asset.tiles, xt*24, yt*24, 24, 336, 24, 24);
+		int xo = room.time%160/10;
+		if(xo >= 8){
+			xo = 7-(xo-8);
+		}
+		xo *= 72;
 		
 
-		else if(l)screen.draw(Asset.tiles, xt*24, yt*24, 0, 312, 24, 24);
-		else if(r)screen.draw(Asset.tiles, xt*24, yt*24, 48, 312, 24, 24);
-		else screen.draw(Asset.tiles, xt*24, yt*24, 24, 312, 24, 24);
+		if(u && l)screen.draw(Asset.teleporter, xt*24, yt*24, 0+xo, 0, 24, 24);
+		else if(u && r)screen.draw(Asset.teleporter, xt*24, yt*24, 48+xo, 0, 24, 24);
+		else if(u)screen.draw(Asset.teleporter, xt*24, yt*24, 24+xo, 0, 24, 24);
+
+		else if(d && l)screen.draw(Asset.teleporter, xt*24, yt*24, 0+xo, 48, 24, 24);
+		else if(d && r)screen.draw(Asset.teleporter, xt*24, yt*24, 48+xo, 48, 24, 24);
+		else if(d)screen.draw(Asset.teleporter, xt*24, yt*24, 24+xo, 48, 24, 24);
+		
+
+		else if(l)screen.draw(Asset.teleporter, xt*24, yt*24, 0+xo, 24, 24, 24);
+		else if(r)screen.draw(Asset.teleporter, xt*24, yt*24, 48+xo, 24, 24, 24);
+		else{
+			screen.draw(Asset.teleporter, xt*24, yt*24, 24+xo, 24, 24, 24);
+			int light = room.time%160;
+			if(light > 80)light = 80-(light-80);
+			room.lights.add(new Light(xt*24+12, yt*24+12, 64+light/4));
+		}
 	}
 }

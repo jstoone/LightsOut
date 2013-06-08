@@ -6,4 +6,5 @@ public class Asset {
 	public static Bitmap bullet = AssetLoader.loadBitmap("/bullet.png");
 	public static Bitmap bulletHit = AssetLoader.loadBitmap("/bulletHit.png");
 	public static Bitmap enemy = AssetLoader.loadBitmap("/enemy.png");
+	public static Bitmap teleporter = AssetLoader.loadBitmap("/teleporter.png");
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.entity.Enemy;
 import com.dddbomber.bgj.entity.Entity;
 import com.dddbomber.bgj.entity.Player;
 import com.dddbomber.bgj.input.InputHandler;
@@ -19,6 +20,9 @@ public class Room {
 	public ArrayList<Light> lights = new ArrayList<Light>();
 	public ArrayList<LightHandler> lightHandlers = new ArrayList<LightHandler>();
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
+	public int time;
+	
+	public int enemies = 0;
 	
 	public Room(){
 		for(int x = 0; x < w; x++){
@@ -53,6 +57,13 @@ public class Room {
 			screen.overlay(b, 0, 0, 0, i*20+50);
 		}
 		lights.clear();
+		
+		if(enemies == 0){
+			String msg = "INFESTATION CLEARED";
+			screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-14, 0xbcffbc, 1);
+			msg = "TELEPORT TO THE NEXT ROOM";
+			screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xbcffbc, 1);
+		}
 	}
 
 	public Tile getTile(int xt, int yt) {
@@ -60,14 +71,20 @@ public class Room {
 		return Tile.get(tiles[xt + yt * w]);
 	}
 
+	public boolean roomFinished = false;
+	
 	public void tick(InputHandler input) {
+		time++;
 		mouseX = input.mouse.x;
 		mouseY = input.mouse.y;
+		enemies = 0;
 		for(int i = 0; i < entities.size(); i++){
 			Entity e = entities.get(i);
 			e.tick(input, this);
 			if(e.removed){
 				entities.remove(i--);
+			}else{
+				if(e instanceof Enemy)enemies++;
 			}
 		}
 
@@ -78,5 +95,14 @@ public class Room {
                 lightHandlers.remove(i--);
             }
         }
+
+		if(enemies == 0){
+			if(time % 2 == 0){
+				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter)player.teleportDelay--;
+				if(player.teleportDelay <= 0){
+					roomFinished = true;
+				}
+			}
+		}
 	}
 }
