@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.entity.Entity;
+import com.dddbomber.bgj.entity.Player;
 import com.dddbomber.bgj.input.InputHandler;
 
 public class Room {
@@ -12,8 +14,9 @@ public class Room {
 	public int[] tiles = new int[w * h];
 	
 	public int playerX = 100, playerY = 100, mouseX, mouseY;
-	
+
 	public ArrayList<Light> lights = new ArrayList<Light>();
+	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public Room(){
 		tiles[66] = 1;
@@ -28,6 +31,8 @@ public class Room {
 			tiles[y*w] = 2;
 			tiles[19+y*w] = 2;
 		}
+		
+		entities.add(new Player());
 	}
 	
 	public void render(Screen screen){
@@ -37,10 +42,9 @@ public class Room {
             	t.render(screen, this, x, y);
             }
         }
-		lights.add(new Light(playerX, playerY, 32));
-		double angleTo = Math.atan2(mouseX - playerX, mouseY - playerY);
-		for(int io = 0; io < 10; io++){
-			lights.add(new Light((int) (playerX+Math.sin(angleTo)*25*io), (int) (playerY+Math.cos(angleTo)*25*io), io*10+8));
+		
+		for(Entity e : entities){
+			e.render(screen, this);
 		}
 		
 		for(int i = 0; i < 3; i++){
@@ -59,11 +63,14 @@ public class Room {
 	}
 
 	public void tick(InputHandler input) {
-		if(input.keyboard.keys[KeyEvent.VK_W])playerY-=2;
-		if(input.keyboard.keys[KeyEvent.VK_S])playerY+=2;
-		if(input.keyboard.keys[KeyEvent.VK_A])playerX-=2;
-		if(input.keyboard.keys[KeyEvent.VK_D])playerX+=2;
 		mouseX = input.mouse.x;
 		mouseY = input.mouse.y;
+		for(int i = 0; i < entities.size(); i++){
+			Entity e = entities.get(i);
+			e.tick(input, this);
+			if(e.removed){
+				entities.remove(i--);
+			}
+		}
 	}
 }

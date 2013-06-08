@@ -7,6 +7,7 @@ import com.dddbomber.bgj.room.Room;
 public class Entity {
 	public int x, y;
 	public int xSize, ySize;
+	public boolean removed = false;
 	
 	public void tick(InputHandler input, Room room){
 		
