@@ -226,7 +226,10 @@ public class Bitmap {
 			for(int x = 0; x < w; x++){
 				int xPix = x+xPos;
 				if(xPix < 0 || xPix >= width)continue;
-				int merged = merge(col, pixels[xPix + yPix * width], amount);
+				int merged = col;
+				if(amount != 100){
+					merged = merge(col, pixels[xPix + yPix * width], amount);
+				}
 				pixels[xPix + yPix * width] = merged;
 			}
 		}
