@@ -15,6 +15,44 @@ public class Bitmap {
 	
 	public static Bitmap font = AssetLoader.loadBitmap("/chars.png");
 	
+	private int[] lightFX = new int[] { 0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5, };
+
+	public void overlay(Bitmap bitmap, int xa, int ya, int col, int trans) {
+		int[] oPixels = bitmap.pixels;
+		int i = 0;
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				if (oPixels[i] / 10 <= lightFX[((x + xa) & 3) + ((y + ya) & 3) * 4]) pixels[i] = merge(col, pixels[i], trans);
+				i++;
+			}
+
+		}
+	}
+	
+	public void renderLight(int x, int y, int r) {
+		int x0 = x - r;
+		int x1 = x + r;
+		int y0 = y - r;
+		int y1 = y + r;
+
+		if (x0 < 0) x0 = 0;
+		if (y0 < 0) y0 = 0;
+		if (x1 > width) x1 = width;
+		if (y1 > height) y1 = height;
+		for (int yy = y0; yy < y1; yy++) {
+			int yd = yy - y;
+			yd = yd * yd;
+			for (int xx = x0; xx < x1; xx++) {
+				int xd = xx - x;
+				int dist = xd * xd + yd;
+				if (dist <= r * r) {
+					int br = 255 - dist * 255 / (r * r);
+					if (pixels[xx + yy * width] < br) pixels[xx + yy * width] = br;
+				}
+			}
+		}
+	}
+	
 	public void draw(Bitmap image, int xPos, int yPos, int xo, int yo, int w , int h){
 		for(int y = 0; y < h; y++){
 			int yPix = y+yPos;

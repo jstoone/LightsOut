@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
+import com.dddbomber.bgj.room.Room;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -59,6 +60,8 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
+	
+	Room room = new Room();
 
 	private void render() {
 		renders++;
@@ -70,11 +73,7 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		for(int i = 0; i < 20; i++){
-			for(int y = 0; y < 13; y++){
-				screen.draw(Asset.tiles, i*24, y*24, (i == 0 ? 0 : i == 19 ? 48 : 24), (y == 0 ? 0 : y == 12 ? 48 : 24), 24, 24);
-			}
-		}
+		room.render(screen);
 		
 		if(!input.focus.hasFocus){
 			screen.fill(0, 0, WIDTH, HEIGHT, 0, 50);
@@ -95,6 +94,7 @@ public class Game extends Canvas implements Runnable{
 	private void tick() {
 		ticks++;
 		if(!input.focus.hasFocus)return;
+		room.tick(input);
 		
 	}
 	
