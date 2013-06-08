@@ -2,6 +2,8 @@ package com.dddbomber.bgj.room;
 
 import java.util.Random;
 
+import com.dddbomber.bgj.entity.Werewolf;
+
 public class RoomGenerator {
 	public static Room getBasicRoom(){
 		Random random = new Random();
@@ -41,6 +43,7 @@ public class RoomGenerator {
             room.tiles[xo-1+(y + yo)*Room.w] = Tile.back.id;
             room.tiles[xo+3+(y + yo)*Room.w] = Tile.back.id;
         }
+        room.entities.add(new Werewolf(200, 200));
 		return room;
 	}
 }

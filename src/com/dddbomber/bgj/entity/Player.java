@@ -29,7 +29,7 @@ public class Player extends Entity{
 		if(input.keyboard.keys[KeyEvent.VK_D])if(canPass(room, 2, 0))x+=2;
 		if(shootDelay > 0)shootDelay--;
 		if(input.mouse.left && shootDelay == 0){
-			shootDelay = 30;
+			shootDelay = 20;
 			double angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
 			room.entities.add(new Bullet((int)x-1, (int)y-1, Math.sin(angleTo)*5, Math.cos(angleTo)*5, Math.toDegrees(angleTo)));
 		}
@@ -44,7 +44,7 @@ public class Player extends Entity{
 	}
 	
 	public void render(Screen screen, Room room){
-		double angleTo = Math.atan2(room.mouseX - x+8, room.mouseY - y+8);
+		double angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
 
 		screen.drawRotated(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)));
 		

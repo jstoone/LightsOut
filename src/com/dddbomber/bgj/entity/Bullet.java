@@ -27,6 +27,7 @@ public class Bullet extends Entity{
 			y += ySpeed;
 		}else{
 			removed = true;
+			room.entities.add(new BulletHit((int)x-2, (int)y-2));
 		}
 	}
 	
