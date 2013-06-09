@@ -26,6 +26,10 @@ public class SpittingWerewolf extends Werewolf{
 	Random random = new Random();
 	
 	public void tick(InputHandler input, Room room){
+		if(!canPass(room, 0, 0)){
+			removed = true;
+		}
+		
 		if(seenPlayer){
 			targetX = (int) (room.player.x+8);
 			targetY = (int) (room.player.y+8);

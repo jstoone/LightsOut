@@ -24,6 +24,11 @@ public class Spider extends Enemy{
 	public double rotation = random.nextInt(360);
 
 	public void tick(InputHandler input, Room room){
+
+		if(!canPass(room, 0, 0)){
+			removed = true;
+		}
+		
 		if(seenPlayer){
 			rotation = Math.toDegrees(Math.atan2(room.player.x-x-8, room.player.y-y-8));
 		}else{
