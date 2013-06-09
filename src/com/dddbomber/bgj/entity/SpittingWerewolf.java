@@ -19,6 +19,8 @@ public class SpittingWerewolf extends Werewolf{
 		super(x, y);
 		health = 10;
 		seeDelay = 48;
+		seenPlayer = true;
+		invinsible = false;
 	}
 	public int attackDelay;
 	
@@ -63,10 +65,6 @@ public class SpittingWerewolf extends Werewolf{
 			seeDelay--;
 			if(seeDelay == 24){
 				room.entities.add(new AlienBullet((int)x+4, (int)y+4, Math.sin(angleTo)*3, Math.cos(angleTo)*3, Math.toDegrees(angleTo)));
-			}
-			if(seeDelay == 0){
-				seenPlayer = true;
-				invinsible = false;
 			}
 		}
 

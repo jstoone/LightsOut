@@ -20,6 +20,9 @@ public class Sound {
 
 	public static boolean muted = false;
 
+	public static Sound doorClose = new Sound("/doorclose.wav");
+	public static Sound doorOpen = new Sound("/dooropen.wav");
+
 	
 	private AudioClip clip;
 	public boolean stopped;
@@ -66,5 +69,10 @@ public class Sound {
 		}catch(Throwable e){
 			e.printStackTrace();
 		}
+	}
+
+	public void stop() {
+		this.clip.stop();
+		this.stopped = true;
 	}
 }

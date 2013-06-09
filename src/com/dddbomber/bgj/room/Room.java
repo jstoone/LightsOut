@@ -148,7 +148,11 @@ public class Room {
 					doorsOpen++;
 				}
 				doorCloseDelay++;
-				if(doorCloseDelay > 60)doorsOpening = false;
+				if(doorCloseDelay > 60){
+					doorsOpening = false;
+					Sound.doorOpen.stop();
+					Sound.doorClose.play();
+				}
 			}else{
 				if(doorsOpen > 0){
 					doorsOpen--;
@@ -172,7 +176,7 @@ public class Room {
 
 		if(enemies == 0 && lightsOff == 0){
 			if(lightLevel < 150)lightLevel++;
-			if(time % 2 == 0){
+			if(time % 3 == 0){
 				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter){
 					player.teleportDelay--;
 					if(player.teleportDelay == 99){

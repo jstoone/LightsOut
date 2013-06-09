@@ -70,6 +70,8 @@ public class ComplexTile extends Tile{
 		}else if(ul){
 			if(ur){
 				screen.draw(Asset.tiles, xt*24, yt*24, 192, tex, 24, 24);
+			}else if(dl){
+				screen.draw(Asset.tiles, xt*24, yt*24, 192, tex+24, 24, 24);
 			}else{
 				screen.draw(Asset.tiles, xt*24, yt*24, 120, 24+tex, 24, 24);
 			}

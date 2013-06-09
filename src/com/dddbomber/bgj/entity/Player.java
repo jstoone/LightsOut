@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Light;
 import com.dddbomber.bgj.room.Room;
@@ -26,6 +27,8 @@ public class Player extends Entity{
 	public boolean starting = true;
 	
 	public void tick(InputHandler input, Room room){
+		this.canPass(room, 0, 0);
+		
 		if(starting){
 			if(room.time % 2 == 0)teleportDelay++;
 			if(teleportDelay == 100){
@@ -82,7 +85,11 @@ public class Player extends Entity{
                         level.tiles[xt+yt*Room.w] = Tile.lightOn.id;
                     }
 					if(level.getTile(xt, yt) == Tile.doorTile){
-						level.doorsOpening = true;
+						if(!level.doorsOpening){
+							Sound.doorClose.stop();
+							Sound.doorOpen.play();
+							level.doorsOpening = true;
+						}
 						level.doorCloseDelay = 0;
 					}
 				}
