@@ -39,10 +39,6 @@ public class Entity {
 				int yt = y/24;
 				if(level.getTile(xt, yt).solid){
 					canPass = false;
-                    if(level.getTile(xt, yt) == Tile.lightOff){
-                        level.lightHandlers.add(new LightHandler(xt, yt, 300));
-                        level.tiles[xt+yt*Room.w] = Tile.lightOn.id;
-                    }
 				}
 			}
 		}
