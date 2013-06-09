@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -112,6 +113,12 @@ public class Game extends Canvas implements Runnable{
 		//MP3.main(args);
 		Game game = new Game();
 		JFrame frame = new JFrame(NAME);
+		try{
+			icon = ImageIO.read(Game.class.getResourceAsStream("/icon.png"));
+			frame.setIconImage(icon);
+		}catch(Exception e){
+			
+		}
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(game, BorderLayout.CENTER);
 		frame.setContentPane(panel);
