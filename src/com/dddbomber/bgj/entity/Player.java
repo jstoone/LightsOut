@@ -83,6 +83,7 @@ public class Player extends Entity{
 					canPass = false;
 					if(level.getTile(xt, yt) == Tile.lightOff){
                         level.tiles[xt+yt*Room.w] = Tile.lightOn.id;
+                        Sound.click.play();
                     }
 					if(level.getTile(xt, yt) == Tile.doorTile){
 						if(!level.doorsOpening){

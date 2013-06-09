@@ -23,10 +23,12 @@ public class Spider extends Enemy{
 	public double rotation;
 
 	public void tick(InputHandler input, Room room){
+		if(room.player.teleportDelay != 100)return;
+		
 		rotation = Math.toDegrees(Math.atan2(room.player.x-x-8, room.player.y-y-8));
 
-		double xm = Math.sin(Math.toRadians(rotation))*1.75;
-		double ym = Math.cos(Math.toRadians(rotation))*1.75;
+		double xm = Math.sin(Math.toRadians(rotation))*1.5;
+		double ym = Math.cos(Math.toRadians(rotation))*1.5;
 
 		if(canPass(room, xm, 0)){
 			x += xm;

@@ -14,9 +14,12 @@ public class Sound {
 
 	public static Sound roar = new Sound("/roar.wav");
 	public static Sound wolfHurt = new Sound("/wolfHurt.wav");
+	
 	public static Sound warpback = new Sound("/warpback.wav");
 	public static Sound warpstop = new Sound("/warpstop.wav");
 	public static Sound warpstart = new Sound("/warpstart.wav");
+	
+	public static Sound click = new Sound("/click.wav");
 
 	public static boolean muted = false;
 

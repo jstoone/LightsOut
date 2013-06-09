@@ -18,15 +18,20 @@ public class GameMenu extends Menu{
 		room.msgToDisplay2 = "TOUCH LIGHTS TO TURN THEM ON";
 		room.entities.clear();
 		room.entities.add(room.player);
+		for(int xl = 0; xl < 2; xl++){
+        	for(int yl = 0; yl < 2; yl++){
+        			room.tiles[xl*13 + 3 + (yl*6+3) * Room.w] = Tile.lightOff.id;
+        	}
+        }
 		for(int x = 0; x < 3; x++){
             for(int y = 0; y < 3; y++){
                 room.tiles[(x + 1)+(y + 1)*Room.w] = Tile.teleporter.id;
             }
         }
+		
+		
         room.player.x = 52;
         room.player.y = 52;
-        
-        room.entities.add(new Spider(100, 100));
 	}
 
 	public void tick(InputHandler input) {
