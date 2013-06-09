@@ -46,7 +46,7 @@ public class Bullet extends Entity{
 			if(shouldCheck){
 				for(Entity e : room.entities){
 					if(e instanceof SpittingWerewolf){
-						if(((Werewolf) e).seeDelay == 60){
+						if(((Werewolf) e).seeDelay == 48){
 							((Werewolf) e).seeDelay--;
 						}
 					}else if(e instanceof Werewolf){
