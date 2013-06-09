@@ -98,6 +98,10 @@ public class SpittingWerewolf extends Werewolf{
 		}
 		
 		angleTo = Math.toRadians(Math.toDegrees(angleTo) % 360);
+
+		if(removed){
+			room.entities.add(new WerewolfDeath(x, y, Math.toDegrees(angleTo)));
+		}
 	}
 	
 	public boolean canPass(Room level, double xm, double ym){

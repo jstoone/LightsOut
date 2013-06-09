@@ -17,4 +17,5 @@ public class Asset {
 	public static Bitmap enemySmall = AssetLoader.loadBitmap("/alien_small.png");
 	public static Bitmap titleBack = AssetLoader.loadBitmap("/titleback.png");
 	public static Bitmap ship = AssetLoader.loadBitmap("/ship.png");
+	public static Bitmap enemyDeath = AssetLoader.loadBitmap("/alien_death.png");
 }

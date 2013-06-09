@@ -115,6 +115,10 @@ public class Werewolf extends Enemy{
 		}
 		
 		angleTo = Math.toRadians(Math.toDegrees(angleTo) % 360);
+		
+		if(removed){
+			room.entities.add(new WerewolfDeath(x, y, Math.toDegrees(angleTo)));
+		}
 	}
 	
 	public void changeTarget(){
