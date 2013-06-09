@@ -21,6 +21,8 @@ public class Bullet extends Entity{
 		this.y = y;
 		rotation = (int) angleTo;
 	}
+	
+	public boolean shouldCheck = false;
 
 	public void tick(InputHandler input, Room room){
 		if(canPass(room, xSpeed, ySpeed)){
@@ -31,6 +33,7 @@ public class Bullet extends Entity{
 					if(e instanceof Enemy){
 						if(this.intersects(e)){
 							e.damage(xSpeed, ySpeed);
+							shouldCheck = true;
 							removed = true;
 						}
 					}
@@ -40,6 +43,21 @@ public class Bullet extends Entity{
 			removed = true;
 		}
 		if(removed){
+			if(shouldCheck){
+				for(Entity e : room.entities){
+					if(e instanceof SpittingWerewolf){
+						if(((Werewolf) e).seeDelay == 60){
+							((Werewolf) e).seeDelay--;
+						}
+					}else if(e instanceof Werewolf){
+						if(((Werewolf) e).seeDelay == 60){
+							((Werewolf) e).seeDelay--;
+						}
+					}else if(e instanceof Spider){
+						((Spider) e).seenPlayer = true;
+					}
+				}
+			}
 			room.entities.add(new BulletHit((int)x-2, (int)y-2));
 			Sound.wolfHurt.play();
 		}

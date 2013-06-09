@@ -159,16 +159,16 @@ public class RoomGenerator {
         		}
         	}
         }
-        
-        if(random.nextInt(3)==0)room.entities.add(new Werewolf(200, 150));
-        if(random.nextInt(3)==0)room.entities.add(new Werewolf(300, 150));
-        if(random.nextInt(3)==0)room.entities.add(new SpittingWerewolf(200, 100));
-        if(random.nextInt(3)==0) room.entities.add(new SpittingWerewolf(300, 100));
 
         if(random.nextInt(3)==0)room.entities.add(new Spider(50, 150));
         if(random.nextInt(3)==0)room.entities.add(new Spider(100, 150));
         if(random.nextInt(3)==0)room.entities.add(new Spider(150, 150));
         if(random.nextInt(3)==0)room.entities.add(new Spider(250, 150));
+        
+        if(random.nextInt(3)==0)room.entities.add(new Werewolf(200, 150));
+        if(random.nextInt(3)==0)room.entities.add(new Werewolf(300, 150));
+        if(random.nextInt(3)==0)room.entities.add(new SpittingWerewolf(200, 100));
+        if(random.nextInt(3)==0) room.entities.add(new SpittingWerewolf(300, 100));
 
         Sound.warpstop.play();
 		return room;

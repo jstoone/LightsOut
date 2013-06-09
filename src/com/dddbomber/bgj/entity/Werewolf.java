@@ -29,7 +29,6 @@ public class Werewolf extends Enemy{
 	
 	public int targetX, targetY;
 	public double angleTo = 0;
-	public boolean seenPlayer = false;
 	
 	public boolean invinsible = true;
 	public int seeDelay = 60, attackDelay;

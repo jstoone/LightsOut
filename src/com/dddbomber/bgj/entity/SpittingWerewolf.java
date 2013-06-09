@@ -22,6 +22,7 @@ public class SpittingWerewolf extends Werewolf{
 		seenPlayer = true;
 		invinsible = false;
 	}
+	
 	public int attackDelay;
 	
 	Random random = new Random();
