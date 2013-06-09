@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -15,9 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.dddbomber.bgj.assets.Asset;
-import com.dddbomber.bgj.assets.MP3;
 import com.dddbomber.bgj.assets.Render;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.menu.Menu;
 
@@ -55,7 +56,7 @@ public class Game extends Canvas implements Runnable{
 			long now = System.nanoTime();
 			time += (now - lastTime) / nsPerTick;
 			lastTime = now;
-			boolean render = true;
+			boolean render = false;
 			while(time >= 1){
 				tick();
 				time -= 1;
@@ -105,12 +106,23 @@ public class Game extends Canvas implements Runnable{
 		ticks++;
 		if(!input.focus.hasFocus)return;
 		Menu.getMenu().tick(input);
+		if(input.keyboard.keys[KeyEvent.VK_M]){
+			pressed = true;
+		}else{
+			if(pressed){
+				pressed = false;
+				if(Sound.song.stopped){
+					Sound.song.loop();
+				}else{
+					Sound.song.stop();
+				}
+			}
+		}
 	}
 	
 	public static Image icon;
 	
 	public static void main(String[] args){
-		//MP3.main(args);
 		Game game = new Game();
 		JFrame frame = new JFrame(NAME);
 		try{
@@ -139,6 +151,7 @@ public class Game extends Canvas implements Runnable{
 		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
+		Sound.song.loop()
 	}
 	
 	public void stop() {

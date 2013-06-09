@@ -26,6 +26,8 @@ public class Sound {
 	public static Sound doorClose = new Sound("/doorclose.wav");
 	public static Sound doorOpen = new Sound("/dooropen.wav");
 
+	public static Sound song = new Sound("/song.wav");
+
 	
 	private AudioClip clip;
 	public boolean stopped;
