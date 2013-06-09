@@ -4,7 +4,7 @@ import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 
 public abstract class Menu {
-	private static Menu menu = new MainMenu();
+	private static Menu menu = new MainMenu(0);
 	
 	public static void setMenu(Menu m){
 		menu = m;

@@ -50,6 +50,9 @@ public class GameMenu extends Menu{
 				room.msgToDisplay2 = "KILL THE ENEMIES AND TURN ON THE LIGHTS";
 			}
 		}
+		if(room.player.removed){
+			Menu.setMenu(new LoseMenu(0));
+		}
 	}
 
 	public void render(Screen screen) {

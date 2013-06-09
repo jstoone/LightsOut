@@ -12,6 +12,10 @@ public class MainMenu extends Menu{
 	
 	public boolean play = false, mouse;
 	
+	public MainMenu(int time) {
+		this.time = time;
+	}
+
 	public void tick(InputHandler input) {
 		mx = input.mouse.x;
 		my = input.mouse.y;
