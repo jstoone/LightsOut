@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH = 480, HEIGHT = 312;
 	public static int SCREENWIDTH = 960, SCREENHEIGHT = 624;
-	public static final String NAME = "Wierd Game Thing";
+	public static final String NAME = "Interstellar Infestation";
 
 	public Render render;
 	public Screen screen;
