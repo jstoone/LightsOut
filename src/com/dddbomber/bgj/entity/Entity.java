@@ -14,10 +14,17 @@ public class Entity {
 	public boolean removed = false;
 	
 	public int health = 25;
+	public boolean solid = false;
 	
 	public boolean intersects(Entity e){
 		Rectangle tr = new Rectangle((int)x, (int)y, xSize, ySize);
 		Rectangle er = new Rectangle((int)e.x, (int)e.y, e.xSize, e.ySize);
+		return tr.intersects(er);
+	}
+	
+	public boolean intersectsLarge(Entity e){
+		Rectangle tr = new Rectangle((int)x-2, (int)y-2, xSize+4, ySize+4);
+		Rectangle er = new Rectangle((int)e.x-2, (int)e.y-2, e.xSize+4, e.ySize+4);
 		return tr.intersects(er);
 	}
 	

@@ -17,6 +17,7 @@ public class Player extends Entity{
 		y = 100;
 		xSize = 16;
 		ySize = 16;
+		solid = true;
 	}
 	
 	public int shootDelay, anim, animDelay;
@@ -81,9 +82,17 @@ public class Player extends Entity{
 				}
 			}
 		}
+		x += xm;
+		y += ym;
+		for(Entity e : level.entities){
+			if(e != this && e.solid && e.x+e.xSize >= x && e.y+e.ySize >= y && e.x <= x+xSize && e.y <= y+ySize){
+				if(this.intersectsLarge(e))canPass = false;
+			}
+		}
+		x -= xm;
+		y -= ym;
 		return canPass;
 	}
-	
 	public void render(Screen screen, Room room){
 		screen.drawRotatedTrans(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)), teleportDelay);
 		

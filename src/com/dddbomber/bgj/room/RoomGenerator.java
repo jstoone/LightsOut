@@ -45,6 +45,7 @@ public class RoomGenerator {
             room.tiles[xo+3+(y + yo)*Room.w] = Tile.back.id;
         }
         room.entities.add(new Werewolf(200, 200));
+        room.entities.add(new Werewolf(300, 200));
         
         for(int xl = 0; xl < 4; xl++){
         	 for(int yl = 0; yl < 2; yl++){

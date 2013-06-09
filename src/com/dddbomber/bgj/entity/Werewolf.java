@@ -5,7 +5,6 @@ import java.util.Random;
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
-import com.dddbomber.bgj.room.LightHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.Tile;
 
@@ -18,8 +17,9 @@ public class Werewolf extends Enemy{
 	public Werewolf(int x, int y){
 		this.x = x;
 		this.y = y;
-		xSize = 16;
-		ySize = 16;
+		xSize = 24;
+		ySize = 24;
+		solid = true;
 	}
 
 	public int anim, animDelay, clawAnim;
@@ -127,18 +127,27 @@ public class Werewolf extends Enemy{
 				}
 			}
 		}
+		x += xm;
+		y += ym;
+		for(Entity e : level.entities){
+			if(e != this && e.solid && e.x+e.xSize >= x && e.y+e.ySize >= y && e.x <= x+xSize && e.y <= y+ySize){
+				if(this.intersects(e))canPass = false;
+			}
+		}
+		x -= xm;
+		y -= ym;
 		return canPass;
 	}
 	
 	public void render(Screen screen, Room room){
 		if(clawAnim > 0){
-			screen.drawRotated(Asset.enemyClaw, (int)x-16, (int)y-16, ((25-clawAnim)/5)*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyClaw, (int)x-12, (int)y-12, ((25-clawAnim)/5)*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else if(seeDelay < 60 && seeDelay > 0){
-			screen.drawRotated(Asset.enemyRoar, (int)x-16, (int)y-16, roarAnim[seeDelay/4]*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyRoar, (int)x-12, (int)y-12, roarAnim[seeDelay/4]*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else if(hitDelay > 0){
-			screen.drawRotated(Asset.enemyHit, (int)x-16, (int)y-16, hitDelay/5*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyHit, (int)x-12, (int)y-12, hitDelay/5*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else{
-			screen.drawRotated(Asset.enemy, (int)x-16, (int)y-16, anim%4*48, anim/4*48+(seenPlayer ? 96 : 0), 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemy, (int)x-12, (int)y-12, anim%4*48, anim/4*48+(seenPlayer ? 96 : 0), 48, 48, (int)(Math.toDegrees(angleTo)));
 		}
 		
 	}
