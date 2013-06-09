@@ -42,7 +42,7 @@ public class MP3 {
     }
 
     public static void main(String[] args) {
-			MP3 mp3 = new MP3("/LightsOutv2.mp3");
+			MP3 mp3 = new MP3("/song.mp3");
 	        mp3.play();
     }
 

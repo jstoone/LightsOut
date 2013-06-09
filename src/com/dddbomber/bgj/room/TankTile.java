@@ -11,7 +11,7 @@ public class TankTile extends Tile{
 	}
 
 	public void render(Screen screen, Room room, int xt, int yt){
-        screen.draw(Asset.tiles, xt*24, yt*24, 24, 24, 24, 24);
+        screen.draw(Asset.tiles, xt*24, yt*24, 24, 96, 24, 24);
 		
 		if(room.tiles[xt-1+yt*Room.w] != id){
 			screen.draw(Asset.tiles, xt*24, yt*24, 0, 240, 24, 24);

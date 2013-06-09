@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.Tile;
@@ -17,8 +18,8 @@ public class Werewolf extends Enemy{
 	public Werewolf(int x, int y){
 		this.x = x;
 		this.y = y;
-		xSize = 24;
-		ySize = 24;
+		xSize = 20;
+		ySize = 20;
 		solid = true;
 	}
 
@@ -53,8 +54,11 @@ public class Werewolf extends Enemy{
 			double xm = Math.sin(angleTo)*0.75;
 			double ym = Math.cos(angleTo)*0.75;
 			
-			if(canPass(room, xm, ym)){
+			if(canPass(room, xm, 0)){
 				x += xm;
+			}
+			
+			if(canPass(room, 0, ym)){
 				y += ym;
 			}
 			if(hitDelay == 0)attackDelay++;
@@ -65,7 +69,7 @@ public class Werewolf extends Enemy{
 			if(clawAnim > 0){
 				clawAnim--;
 				if(clawAnim == 10){
-					room.entities.add(new WerewolfSlash(x - 12, y-12, (int)(Math.toDegrees(angleTo))));
+					room.entities.add(new WerewolfSlash(x-14, y-14, (int)(Math.toDegrees(angleTo))));
 				}
 			}
 		}else{
@@ -94,11 +98,12 @@ public class Werewolf extends Enemy{
 		double xm = Math.sin(angleTo)*0.25;
 		double ym = Math.cos(angleTo)*0.25;
 		
-		if(canPass(room, xm, ym)){
+		if(canPass(room, xm, 0)){
 			x += xm;
+		}
+		
+		if(canPass(room, 0, ym)){
 			y += ym;
-		}else{
-			changeTarget();
 		}
 
 		animDelay++;
@@ -146,13 +151,13 @@ public class Werewolf extends Enemy{
 	
 	public void render(Screen screen, Room room){
 		if(clawAnim > 0){
-			screen.drawRotated(Asset.enemyClaw, (int)x-12, (int)y-12, ((25-clawAnim)/5)*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyClaw, (int)x-14, (int)y-14, ((25-clawAnim)/5)*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else if(seeDelay < 60 && seeDelay > 0){
-			screen.drawRotated(Asset.enemyRoar, (int)x-12, (int)y-12, roarAnim[seeDelay/4]*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyRoar, (int)x-14, (int)y-14, roarAnim[seeDelay/4]*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else if(hitDelay > 0){
-			screen.drawRotated(Asset.enemyHit, (int)x-12, (int)y-12, hitDelay/5*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemyHit, (int)x-14, (int)y-14, hitDelay/5*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else{
-			screen.drawRotated(Asset.enemy, (int)x-12, (int)y-12, anim%4*48, anim/4*48+(seenPlayer ? 96 : 0), 48, 48, (int)(Math.toDegrees(angleTo)));
+			screen.drawRotated(Asset.enemy, (int)x-14, (int)y-14, anim%4*48, anim/4*48+(seenPlayer ? 96 : 0), 48, 48, (int)(Math.toDegrees(angleTo)));
 		}
 		
 	}
@@ -165,6 +170,7 @@ public class Werewolf extends Enemy{
 			hitDelay = 9;
 		}else if(seeDelay == 60){
 			seeDelay--;
+			Sound.roar.play();
 		}
 	}
 }

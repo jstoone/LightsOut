@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.entity.Enemy;
 import com.dddbomber.bgj.entity.Entity;
 import com.dddbomber.bgj.entity.Player;
@@ -107,13 +108,30 @@ public class Room {
 			if(time % 2 == 0){
 				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter){
 					player.teleportDelay--;
+					if(player.teleportDelay == 99){
+						Sound.stopAll();
+						Sound.warpstart.play();
+					}else if(player.teleportDelay == 50){
+						Sound.stopAll();
+						Sound.warpback.loop();
+					}
+					
+					teleporting = true;
 				}else if(player.teleportDelay < 100){
 					player.teleportDelay++;
+					if(teleporting){
+						Sound.stopAll();
+						Sound.warpstop.play();
+						teleporting = false;
+					}
 				}
 				if(player.teleportDelay <= 0){
 					roomFinished = true;
+					Sound.stopAll();
 				}
 			}
 		}
 	}
+	
+	public boolean teleporting = false;
 }

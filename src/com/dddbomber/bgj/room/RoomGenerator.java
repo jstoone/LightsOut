@@ -2,6 +2,7 @@ package com.dddbomber.bgj.room;
 
 import java.util.Random;
 
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.entity.Werewolf;
 
 public class RoomGenerator {
@@ -50,14 +51,26 @@ public class RoomGenerator {
                 room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.teleporter.id;
             }
         }
+        
+        if(xo < 5){
+        	xo += 4;
+        }else{
+        	xo -= 6;
+        }
+        for(int x = 0; x < 5; x++){
+            for(int y = 0; y < 3; y++){
+                room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.grate.id;
+                if(y == 1 && x != 0 && x != 4)room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.tank.id;
+            }
+        }
         for(int y = 0; y < 3; y++){
             room.tiles[xo-1+(y + yo)*Room.w] = Tile.back.id;
-            room.tiles[xo+3+(y + yo)*Room.w] = Tile.back.id;
+            room.tiles[xo+5+(y + yo)*Room.w] = Tile.back.id;
         }
         room.entities.add(new Werewolf(200, 200));
         room.entities.add(new Werewolf(300, 200));
         
-        
+        Sound.warpstop.play();
 		return room;
 	}
 }

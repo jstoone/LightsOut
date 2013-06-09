@@ -2,6 +2,7 @@ package com.dddbomber.bgj.entity;
 
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.assets.Sound;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Light;
 import com.dddbomber.bgj.room.Room;
@@ -40,6 +41,7 @@ public class Bullet extends Entity{
 		}
 		if(removed){
 			room.entities.add(new BulletHit((int)x-2, (int)y-2));
+			Sound.wolfHurt.play();
 		}
 	}
 	

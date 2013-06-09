@@ -202,6 +202,41 @@ public class Bitmap {
         }
     }
 	
+	public void drawRotatedTransEffected(Bitmap bitmap, int xOffs, int yOffs, int xo, int yo, int w, int h, int rotation, int amount) {
+        final double radians = Math.toRadians(rotation);
+        final double cos = Math.cos(radians)*1.25;
+        final double sin = Math.sin(radians)*1.25;
+        for(int y = 0; y < w; y++){
+            int yPix = y + yo;
+            for(int x = 0; x < h; x++){
+                int xPix = x + xo;
+
+                int centerX = w / 2;
+                int centerY = h / 2;
+                int m = x - centerX;
+                int n = y - centerY;
+                int j = ((int) (m * cos + n * sin)) + centerX;
+                int k = ((int) (n * cos - m * sin)) + centerY;
+
+                int src = bitmap.pixels[xPix + yPix * bitmap.width];
+                if(src != -2){
+                	src = 0xbcff00;
+                }
+                
+                int xDraw = xOffs+j;
+                int yDraw = yOffs+k;
+
+                if(xDraw < 0 || xDraw >= width-1 || yDraw < 0 || yDraw >= height-1)continue;
+                if(src != -2){
+                	pixels[xDraw + yDraw * width] = merge(src, pixels[xDraw + yDraw * width], amount);
+                	if(x < w-1)pixels[xDraw + 1 + yDraw * width] = merge(src, pixels[xDraw + 1 + yDraw * width], amount);
+                	else if(y < h-1)pixels[xDraw + (yDraw + 1) * width] = merge(src, pixels[xDraw + (yDraw + 1) * width], amount);
+                }
+
+            }
+        }
+    }
+	
 	public void draw(String string, int x, int y, int col, double scale) {
 		string = string.toUpperCase();
         for (int i = 0; i < string.length(); i++) {

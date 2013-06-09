@@ -74,7 +74,6 @@ public class Player extends Entity{
 				int yt = y/24;
 				if(level.getTile(xt, yt).solid){
 					canPass = false;
-				}else{
 					if(level.getTile(xt, yt) == Tile.lightOff){
                         level.lightHandlers.add(new LightHandler(xt, yt, 300));
                         level.tiles[xt+yt*Room.w] = Tile.lightOn.id;
@@ -95,6 +94,9 @@ public class Player extends Entity{
 	}
 	public void render(Screen screen, Room room){
 		screen.drawRotatedTrans(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)), teleportDelay);
+		if(teleportDelay < 100){
+			screen.drawRotatedTransEffected(Asset.player, (int)x-16, (int)y-16, anim%4*48, anim/4*48, 48, 48, (int)(Math.toDegrees(angleTo)), 10-teleportDelay/10);
+		}
 		
 		room.lights.add(new Light((int)x+8, (int)y+8, 32));
 		for(int io = 0; io < 8; io++){

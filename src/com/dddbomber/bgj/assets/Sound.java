@@ -4,11 +4,22 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.util.ArrayList;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineEvent.Type;
+import javax.sound.sampled.LineListener;
+
 public class Sound {
 	public static ArrayList<Sound> sounds = new ArrayList<Sound>();
 
+	public static Sound roar = new Sound("/roar.wav");
+	public static Sound wolfHurt = new Sound("/wolfHurt.wav");
+	public static Sound warpback = new Sound("/warpback.wav");
+	public static Sound warpstop = new Sound("/warpstop.wav");
+	public static Sound warpstart = new Sound("/warpstart.wav");
 
 	public static boolean muted = false;
+
 	
 	private AudioClip clip;
 	public boolean stopped;
@@ -35,7 +46,6 @@ public class Sound {
 			new Thread(){
 				public void run(){
 					clip.loop();
-					
 					stopped = false;
 				}
 			}.start();

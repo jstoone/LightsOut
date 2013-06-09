@@ -7,6 +7,7 @@ public class Tile {
 	public static Tile[] tiles = new Tile[24];
 	
 	public static Tile testTile = new ComplexTile(0);
+	public static Tile grate = new ComplexTile(1);
 	public static Tile back = new ComplexTile(2).setSolid();
     public static Tile lightOn = new LightTile(true).setSolid();
     public static Tile lightOff = new LightTile(false).setSolid();
