@@ -266,7 +266,7 @@ public class Bitmap {
 				int xDraw = (int) (x/scale+xo);
 				int yDraw = (int) (y/scale+yo);
 				int src = image.pixels[(int) (xDraw + yDraw * image.width)];
-				if(src != 0xffffffff)pixels[xPix + yPix * width] = col;
+				if(src != 0xffffffff && src != -2)pixels[xPix + yPix * width] = col;
 			}
 		}
     }

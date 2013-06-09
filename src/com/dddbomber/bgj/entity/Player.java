@@ -18,6 +18,7 @@ public class Player extends Entity{
 		xSize = 16;
 		ySize = 16;
 		solid = true;
+		health = 20;
 	}
 	
 	public int shootDelay, anim, animDelay;

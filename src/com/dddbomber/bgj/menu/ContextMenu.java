@@ -1,6 +1,5 @@
 package com.dddbomber.bgj.menu;
 
-import com.dddbomber.bgj.Game;
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;

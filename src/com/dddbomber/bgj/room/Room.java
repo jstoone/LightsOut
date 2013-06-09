@@ -89,8 +89,9 @@ public class Room {
 		if(!msgToDisplay2.equals("")){
 			screen.draw(msgToDisplay2, (int) (screen.width/2-msgToDisplay2.length()*3.5), 31, 0xffffff, 1);
 		}
-		for(int i = 0; i < 25; i++)screen.draw(Asset.gui, 2+i*9, 2, 8, 0, 8, 20);
-		for(int i = 0; i < player.health; i++)screen.draw(Asset.gui, 2+i*9, 2, 0, 0, 8, 20);
+
+		screen.drawScaled(Asset.gui, 4, screen.height-44, 20, 0, 20, 20, 2, 2);
+		screen.drawScaled(Asset.gui, 4, screen.height-44+(20-player.health)*2, 0, (20-player.health), 20, player.health, 2, 2);
 
 		screen.xKnock = xKnock;
 		screen.yKnock = yKnock;

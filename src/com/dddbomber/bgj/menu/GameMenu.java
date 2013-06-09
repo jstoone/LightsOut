@@ -1,5 +1,6 @@
 package com.dddbomber.bgj.menu;
 
+import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.entity.Entity;
 import com.dddbomber.bgj.entity.Spider;
@@ -12,6 +13,8 @@ import com.dddbomber.bgj.room.Tile;
 public class GameMenu extends Menu{
 	
 	Room room = new Room();
+	
+	public int progress = 0;
 	
 	public GameMenu(){
 		room.msgToDisplay = "MOVE WITH WASD / MOUSE TO AIM";
@@ -37,6 +40,7 @@ public class GameMenu extends Menu{
 	public void tick(InputHandler input) {
 		room.tick(input);
 		if(room.roomFinished){
+			progress++;
 			int health = room.player.health;
 			String msg = room.msgToDisplay;
 			room = RoomGenerator.getBasicRoom();
@@ -50,6 +54,8 @@ public class GameMenu extends Menu{
 
 	public void render(Screen screen) {
 		room.render(screen);
+		screen.drawScaledString(Asset.ship, 4, 4, 0, 0, 32, 80, 0xbc0000, 1);
+		screen.drawScaledString(Asset.ship, 4, 4, 0, 0, 32, (progress+(room.lightsOff==0 ? 1 : 0))*5, 0xbcffbc, 1);
 	}
 
 }
