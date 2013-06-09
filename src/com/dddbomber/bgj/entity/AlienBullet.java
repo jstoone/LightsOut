@@ -40,7 +40,7 @@ public class AlienBullet extends Entity{
 			removed = true;
 		}
 		if(removed){
-			Sound.wolfHurt.play();
+			
 		}
 	}
 	

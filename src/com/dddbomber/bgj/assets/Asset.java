@@ -13,4 +13,5 @@ public class Asset {
 	public static Bitmap enemyClawEffect = AssetLoader.loadBitmap("/alien_claw_effect.png");
 	public static Bitmap gui = AssetLoader.loadBitmap("/gui.png");
 	public static Bitmap alienBullet = AssetLoader.loadBitmap("/alien_spit.png");
+	public static Bitmap door = AssetLoader.loadBitmap("/door.png");
 }

@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
-import com.dddbomber.bgj.room.LightHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.Tile;
 
@@ -44,7 +43,7 @@ public class Entity {
 			for(int y = yp; y < yp+ySize; y++){
 				int xt = x/24;
 				int yt = y/24;
-				if(level.getTile(xt, yt).solid){
+				if(level.getTile(xt, yt).isSolid(level)){
 					canPass = false;
 				}
 			}

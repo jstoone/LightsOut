@@ -131,10 +131,14 @@ public class Werewolf extends Enemy{
 			for(int y = yp; y < yp+ySize; y++){
 				int xt = x/24;
 				int yt = y/24;
-				if(level.getTile(xt, yt).solid){
+				if(level.getTile(xt, yt).isSolid(level)){
 					canPass = false;
                     if(level.getTile(xt, yt) == Tile.lightOn){
                         level.tiles[xt+yt*Room.w] = Tile.lightOff.id;
+                        if(seeDelay == 60){
+                			seeDelay--;
+                			Sound.roar.play();
+                        }
                     }
 				}
 			}

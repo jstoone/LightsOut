@@ -2,6 +2,7 @@ package com.dddbomber.bgj.room;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Bitmap;
@@ -20,11 +21,10 @@ public class Room {
 	public Player player;
 
 	public ArrayList<Light> lights = new ArrayList<Light>();
-	public ArrayList<LightHandler> lightHandlers = new ArrayList<LightHandler>();
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public int time;
 	
-	public int enemies = 0;
+	public int enemies = 0, lightsOff;
 	
 	public Room(){
 		for(int x = 0; x < w; x++){
@@ -42,10 +42,15 @@ public class Room {
 	public int lightLevel = 0;
 	
 	public void render(Screen screen){
+		lightsOff = 0;
+		
 		for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
             	Tile t = getTile(x, y);
             	t.render(screen, this, x, y);
+            	if(t == Tile.lightOff){
+            		lightsOff++;
+            	}
             }
         }
 		
@@ -64,13 +69,23 @@ public class Room {
 		lights.clear();
 		
 		if(enemies == 0){
-			String msg = "INFESTATION CLEARED";
-			screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-14, 0xbcffbc, 1);
-			msg = "TELEPORT TO THE NEXT ROOM";
-			screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xbcffbc, 1);
+			if(lightsOff == 0){
+				String msg = "INFESTATION CLEARED";
+				screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-14, 0xbcffbc, 1);
+				msg = "TELEPORT TO THE NEXT ROOM";
+				screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xbcffbc, 1);
+			}else{
+				String msg = "INFESTATION CLEARED";
+				screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-14, 0xffffbc, 1);
+				msg = "MAKE SURE ALL LIGHTS ARE ON";
+				screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xffffbc, 1);
+			}
 		}
 		for(int i = 0; i < 25; i++)screen.draw(Asset.gui, 2+i*9, 2, 8, 0, 8, 20);
 		for(int i = 0; i < player.health; i++)screen.draw(Asset.gui, 2+i*9, 2, 0, 0, 8, 20);
+
+		screen.xKnock = xKnock;
+		screen.yKnock = yKnock;
 	}
 
 	public Tile getTile(int xt, int yt) {
@@ -80,7 +95,67 @@ public class Room {
 
 	public boolean roomFinished = false;
 	
+	public int xTar, yTar, xKnock, yKnock;
+	
+	Random random = new Random();
+	
+	public void updateShake(){
+		if(xTar > 30)xTar = 30;
+		if(xTar < -30)xTar = -30;
+		if(yTar > 30)yTar = 30;
+		if(yTar < -30)yTar = -30;
+
+		if(xKnock < xTar)xKnock += 2;
+		if(xKnock > xTar)xKnock -= 2;
+		if(xKnock == xTar){
+			xTar = -xTar;
+			if(xTar < 0)xTar += 2;
+			if(xTar > 0)xTar -= 2;
+		}
+		
+		if(yKnock < yTar)yKnock += 2;
+		if(yKnock > yTar)yKnock -= 2;
+		if(yKnock == yTar){
+			yTar = -yTar;
+			if(yTar < 0)yTar += 2;
+			if(yTar > 0)yTar -= 2;
+		}
+	}
+	
+	public int doorsOpen = 0, doorCloseDelay = 0;
+	
+	public void shakeBig(){
+		this.xTar += ((random.nextInt(15)-7)*2);
+		this.yTar += ((random.nextInt(15)-7)*2);
+	}
+
+	public void shakeMedium(){
+		this.xTar += ((random.nextInt(9)-4)*2);
+		this.yTar += ((random.nextInt(9)-4)*2);
+	}
+	
+	public void shakeSmall(){
+		this.xTar += ((random.nextInt(5)-2)*2);
+		this.yTar += ((random.nextInt(5)-2)*2);
+	}
+	
 	public void tick(InputHandler input) {
+		this.updateShake();
+
+		if(time % 2 == 0){
+			if(doorsOpening){
+				if(doorsOpen < 9){
+					doorsOpen++;
+				}
+				doorCloseDelay++;
+				if(doorCloseDelay > 60)doorsOpening = false;
+			}else{
+				if(doorsOpen > 0){
+					doorsOpen--;
+				}
+			}
+		}
+
 		time++;
 		mouseX = input.mouse.x;
 		mouseY = input.mouse.y;
@@ -95,16 +170,8 @@ public class Room {
 			}
 		}
 
-        for(int i = 0; i < lightHandlers.size(); i++){
-            LightHandler lh = lightHandlers.get(i);
-            lh.tick(this);
-            if(lh.time == 0){
-                lightHandlers.remove(i--);
-            }
-        }
-
-		if(enemies == 0){
-			if(lightLevel < 100)lightLevel++;
+		if(enemies == 0 && lightsOff == 0){
+			if(lightLevel < 150)lightLevel++;
 			if(time % 2 == 0){
 				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter){
 					player.teleportDelay--;
@@ -134,4 +201,5 @@ public class Room {
 	}
 	
 	public boolean teleporting = false;
+	public boolean doorsOpening = false;
 }

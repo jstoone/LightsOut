@@ -13,6 +13,7 @@ public class Tile {
     public static Tile lightOff = new LightTile(false).setSolid();
 	public static Tile tank = new TankTile(0).setSolid().setDec();
     public static Tile spawnTile = new SpawnTile();
+    public static Tile doorTile = new DoorTile().setSolid();
     
 
     public static Tile teleporter = new TeleporterTile();
@@ -34,10 +35,10 @@ public class Tile {
 		return this;
 	}
 	
-	public boolean solid = false;
+	private boolean solid = false;
 	public boolean isDec;
 
-	public boolean isSolid(){
+	public boolean isSolid(Room room){
 		return solid;
 	}
 	

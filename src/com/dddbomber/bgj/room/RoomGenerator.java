@@ -58,20 +58,26 @@ public class RoomGenerator {
         }else{
         	xo -= 6;
         }
+        
+        boolean tank = random.nextBoolean();
         for(int x = 0; x < 5; x++){
             for(int y = 0; y < 3; y++){
                 room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.grate.id;
-                if(y == 1 && x != 0 && x != 4)room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.tank.id;
+                if(tank && y == 1 && x != 0 && x != 4)room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.tank.id;
             }
         }
         for(int y = 0; y < 3; y++){
             room.tiles[xo-1+(y + yo)*Room.w] = Tile.back.id;
             room.tiles[xo+5+(y + yo)*Room.w] = Tile.back.id;
         }
-        room.entities.add(new Werewolf(200, 150));
-        room.entities.add(new Werewolf(300, 150));
-        room.entities.add(new SpittingWerewolf(200, 100));
-        room.entities.add(new SpittingWerewolf(300, 100));
+
+        room.tiles[123] = Tile.doorTile.id;
+        room.tiles[124] = Tile.doorTile.id;
+        
+        if(random.nextBoolean())room.entities.add(new Werewolf(200, 150));
+        if(random.nextBoolean())room.entities.add(new Werewolf(300, 150));
+        if(random.nextBoolean())room.entities.add(new SpittingWerewolf(200, 100));
+        if(random.nextBoolean()) room.entities.add(new SpittingWerewolf(300, 100));
         
         Sound.warpstop.play();
 		return room;

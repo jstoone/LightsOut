@@ -9,36 +9,20 @@ import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.Tile;
 
-public class SpittingWerewolf extends Enemy{
+public class SpittingWerewolf extends Werewolf{
 	
 	public static int[] roarAnim = {
 		0, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 0
 	};
 	
 	public SpittingWerewolf(int x, int y){
-		this.x = x;
-		this.y = y;
-		xSize = 20;
-		ySize = 20;
-		solid = true;
-		
+		super(x, y);
 		health = 10;
+		seeDelay = 48;
 	}
-
-	public int anim, animDelay;
-	
-	public int targetX, targetY;
-	public double angleTo = 0;
-	public boolean seenPlayer = false;
-	
-	public boolean invinsible = true;
-	public int seeDelay = 48, attackDelay;
+	public int attackDelay;
 	
 	Random random = new Random();
-	
-	public double getAngleDifference(double arg1, double arg2){
-	    return ((((arg1 - arg2) % 348) + 540) % 348) - 180;
-	}
 	
 	public void tick(InputHandler input, Room room){
 		if(seenPlayer){
@@ -112,12 +96,7 @@ public class SpittingWerewolf extends Enemy{
 			if(anim >= 8)anim = 0;
 		}
 		
-		angleTo = Math.toRadians(Math.toDegrees(angleTo) % 348);
-	}
-	
-	public void changeTarget(){
-		targetX = (int) (x + random.nextInt(21)-10);
-		targetY = (int) (y + random.nextInt(21)-10);
+		angleTo = Math.toRadians(Math.toDegrees(angleTo) % 360);
 	}
 	
 	public boolean canPass(Room level, double xm, double ym){
@@ -128,10 +107,14 @@ public class SpittingWerewolf extends Enemy{
 			for(int y = yp; y < yp+ySize; y++){
 				int xt = x/24;
 				int yt = y/24;
-				if(level.getTile(xt, yt).solid){
+				if(level.getTile(xt, yt).isSolid(level)){
 					canPass = false;
                     if(level.getTile(xt, yt) == Tile.lightOn){
                         level.tiles[xt+yt*Room.w] = Tile.lightOff.id;
+                        if(seeDelay == 48){
+                			seeDelay--;
+                			Sound.roar.play();
+                        }
                     }
 				}
 			}
@@ -155,11 +138,8 @@ public class SpittingWerewolf extends Enemy{
 			screen.drawRotated(Asset.enemyHit, (int)x-14, (int)y-14, hitDelay/5*48, 0, 48, 48, (int)(Math.toDegrees(angleTo)));
 		}else{
 			screen.drawRotated(Asset.enemy, (int)x-14, (int)y-14, anim%4*48, anim/4*48+(seenPlayer ? 96 : 0), 48, 48, (int)(Math.toDegrees(angleTo)));
-		}
-		
+		}		
 	}
-	
-	public int hitDelay;
 
 	public void damage(double xSpeed, double ySpeed) {
 		if(!invinsible){

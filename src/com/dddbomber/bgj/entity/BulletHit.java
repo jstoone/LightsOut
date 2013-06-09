@@ -20,6 +20,7 @@ public class BulletHit extends Entity{
 			anim++;
 		}else{
 			removed = true;
+			room.shakeSmall();
 		}
 	}
 	

@@ -7,7 +7,6 @@ import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Light;
-import com.dddbomber.bgj.room.LightHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.Tile;
 
@@ -32,6 +31,11 @@ public class Player extends Entity{
 			if(teleportDelay == 100){
 				starting = false;
 			}
+		}
+		
+		if(shouldShake){
+			shouldShake = false;
+			room.shakeMedium();
 		}
 		
 		angleTo = Math.atan2(room.mouseX+4-x-8, room.mouseY+4-y-8);
@@ -72,12 +76,15 @@ public class Player extends Entity{
 			for(int y = yp; y < yp+ySize; y++){
 				int xt = x/24;
 				int yt = y/24;
-				if(level.getTile(xt, yt).solid){
+				if(level.getTile(xt, yt).isSolid(level)){
 					canPass = false;
 					if(level.getTile(xt, yt) == Tile.lightOff){
-                        level.lightHandlers.add(new LightHandler(xt, yt, 300));
                         level.tiles[xt+yt*Room.w] = Tile.lightOn.id;
                     }
+					if(level.getTile(xt, yt) == Tile.doorTile){
+						level.doorsOpening = true;
+						level.doorCloseDelay = 0;
+					}
 				}
 			}
 		}
@@ -101,6 +108,16 @@ public class Player extends Entity{
 		room.lights.add(new Light((int)x+8, (int)y+8, 32));
 		for(int io = 0; io < 8; io++){
 			room.lights.add(new Light((int) (x+8+Math.sin(angleTo)*20*io*teleportDelay*0.01), (int) (y+8+Math.cos(angleTo)*20*io*teleportDelay*0.01), io*5+10-(100-teleportDelay)/2));
+		}
+	}
+	
+	public boolean shouldShake = false;
+	
+	public void damage(double xSpeed, double ySpeed) {
+		if(health > 0){
+			shouldShake = true;
+			health--;
+			if(health == 0)removed = true;
 		}
 	}
 }
