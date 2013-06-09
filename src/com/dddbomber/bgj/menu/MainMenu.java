@@ -26,7 +26,7 @@ public class MainMenu extends Menu{
 			if(mouse){
 				mouse = false;
 				if(play){
-					Menu.setMenu(new GameMenu());
+					Menu.setMenu(new ContextMenu(time));
 				}
 			}
 		}
