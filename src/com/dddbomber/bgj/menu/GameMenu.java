@@ -41,6 +41,9 @@ public class GameMenu extends Menu{
 		room.tick(input);
 		if(room.roomFinished){
 			progress++;
+			if(progress == 16){
+				Menu.setMenu(new WinMenu(0));
+			}
 			int health = room.player.health;
 			String msg = room.msgToDisplay;
 			room = RoomGenerator.getBasicRoom();
