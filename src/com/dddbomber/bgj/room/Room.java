@@ -24,6 +24,8 @@ public class Room {
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public int time;
 	
+	public String msgToDisplay = "", msgToDisplay2 = "";
+	
 	public int enemies = 0, lightsOff;
 	
 	public Room(){
@@ -80,6 +82,12 @@ public class Room {
 				msg = "MAKE SURE ALL LIGHTS ARE ON";
 				screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xffffbc, 1);
 			}
+		}
+		if(!msgToDisplay.equals("")){
+			screen.draw(msgToDisplay, (int) (screen.width/2-msgToDisplay.length()*3.5), 24, 0xffffff, 1);
+		}
+		if(!msgToDisplay2.equals("")){
+			screen.draw(msgToDisplay2, (int) (screen.width/2-msgToDisplay2.length()*3.5), 31, 0xffffff, 1);
 		}
 		for(int i = 0; i < 25; i++)screen.draw(Asset.gui, 2+i*9, 2, 8, 0, 8, 20);
 		for(int i = 0; i < player.health; i++)screen.draw(Asset.gui, 2+i*9, 2, 0, 0, 8, 20);

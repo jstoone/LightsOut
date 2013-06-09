@@ -1,18 +1,45 @@
 package com.dddbomber.bgj.menu;
 
 import com.dddbomber.bgj.assets.Screen;
+import com.dddbomber.bgj.entity.Entity;
+import com.dddbomber.bgj.entity.Spider;
+import com.dddbomber.bgj.entity.SpittingWerewolf;
 import com.dddbomber.bgj.input.InputHandler;
 import com.dddbomber.bgj.room.Room;
 import com.dddbomber.bgj.room.RoomGenerator;
+import com.dddbomber.bgj.room.Tile;
 
 public class GameMenu extends Menu{
 	
-	Room room = RoomGenerator.getBasicRoom();
+	Room room = new Room();
+	
+	public GameMenu(){
+		room.msgToDisplay = "MOVE WITH WASD / MOUSE TO AIM";
+		room.msgToDisplay2 = "TOUCH LIGHTS TO TURN THEM ON";
+		room.entities.clear();
+		room.entities.add(room.player);
+		for(int x = 0; x < 3; x++){
+            for(int y = 0; y < 3; y++){
+                room.tiles[(x + 1)+(y + 1)*Room.w] = Tile.teleporter.id;
+            }
+        }
+        room.player.x = 52;
+        room.player.y = 52;
+        
+        room.entities.add(new Spider(100, 100));
+	}
 
 	public void tick(InputHandler input) {
 		room.tick(input);
 		if(room.roomFinished){
+			int health = room.player.health;
+			String msg = room.msgToDisplay;
 			room = RoomGenerator.getBasicRoom();
+			room.player.health = health;
+			if(msg.equals("MOVE WITH WASD / MOUSE TO AIM")){
+				room.msgToDisplay = "LEFT CLICK TO SHOOT";
+				room.msgToDisplay2 = "KILL THE ENEMIES AND TURN ON THE LIGHTS";
+			}
 		}
 	}
 
