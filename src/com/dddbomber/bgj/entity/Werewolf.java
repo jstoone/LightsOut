@@ -57,12 +57,17 @@ public class Werewolf extends Enemy{
 				x += xm;
 				y += ym;
 			}
-			attackDelay++;
+			if(hitDelay == 0)attackDelay++;
 			if(attackDelay > 45){
 				attackDelay = -15;
 				clawAnim = 30;
 			}
-			if(clawAnim > 0)clawAnim--;
+			if(clawAnim > 0){
+				clawAnim--;
+				if(clawAnim == 10){
+					room.entities.add(new WerewolfSlash(x - 12, y-12, (int)(Math.toDegrees(angleTo))));
+				}
+			}
 		}else{
 			if(random.nextInt(250)==0){
 				changeTarget();
@@ -158,7 +163,7 @@ public class Werewolf extends Enemy{
 		if(!invinsible){
 			super.damage(xSpeed, ySpeed);
 			hitDelay = 9;
-		}else{
+		}else if(seeDelay == 60){
 			seeDelay--;
 		}
 	}

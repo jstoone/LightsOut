@@ -10,4 +10,6 @@ public class Asset {
 	public static Bitmap enemyHit = AssetLoader.loadBitmap("/alien_getHit.png");
 	public static Bitmap enemyRoar = AssetLoader.loadBitmap("/alien_roar.png");
 	public static Bitmap enemyClaw = AssetLoader.loadBitmap("/enemyClaw.png");
+	public static Bitmap enemyClawEffect = AssetLoader.loadBitmap("/alien_claw_effect.png");
+	public static Bitmap gui = AssetLoader.loadBitmap("/gui.png");
 }

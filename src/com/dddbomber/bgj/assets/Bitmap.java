@@ -22,7 +22,8 @@ public class Bitmap {
 		int i = 0;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				if (oPixels[i] / 10 <= lightFX[((x + xa) & 3) + ((y + ya) & 3) * 4]) pixels[i] = merge(col, pixels[i], trans);
+				//if (oPixels[i] / 10 <= lightFX[((x + xa) & 3) + ((y + ya) & 3) * 4]) pixels[i] = merge(col, pixels[i], trans);
+				pixels[i] = merge(0, pixels[i], (int)(100-(oPixels[i]/2.5)));
 				i++;
 			}
 
@@ -250,6 +251,20 @@ public class Bitmap {
 		}
 	}
 	
+	public void fill(int xPos, int yPos, int w, int h, int col){
+		for(int y = 0; y < h; y++){
+			int yPix = y+yPos;
+			if(yPix < 0 || yPix >= height)continue;
+			
+			for(int x = 0; x < w; x++){
+				int xPix = x+xPos;
+				if(xPix < 0 || xPix >= width)continue;
+				if(pixels[xPix + yPix * width] < col)pixels[xPix + yPix * width] = col;
+			}
+		}
+		
+	}
+	
 	public void fill(int xPos, int yPos, int w, int h, int col, int amount){
 		for(int y = 0; y < h; y++){
 			int yPix = y+yPos;
@@ -269,6 +284,9 @@ public class Bitmap {
 	}
 	
 	public int merge(int color, int color2, int amount) {
+
+		if(amount > 100)amount = 100;
+		if(amount < 0)amount = 0;
 
         int r = (color >> 16) & 0xff;
         int g = (color >> 8) & 0xff;

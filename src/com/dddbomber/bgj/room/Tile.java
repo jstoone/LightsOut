@@ -8,8 +8,8 @@ public class Tile {
 	
 	public static Tile testTile = new ComplexTile(0);
 	public static Tile back = new ComplexTile(2).setSolid();
-    public static Tile lightOn = new LightTile(true).setSolid().setDec();
-    public static Tile lightOff = new LightTile(false).setDec();
+    public static Tile lightOn = new LightTile(true).setSolid();
+    public static Tile lightOff = new LightTile(false).setSolid();
 	public static Tile tank = new TankTile(0).setSolid().setDec();
     public static Tile spawnTile = new SpawnTile();
     

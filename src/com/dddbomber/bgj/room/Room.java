@@ -3,6 +3,7 @@ package com.dddbomber.bgj.room;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import com.dddbomber.bgj.assets.Asset;
 import com.dddbomber.bgj.assets.Bitmap;
 import com.dddbomber.bgj.assets.Screen;
 import com.dddbomber.bgj.entity.Enemy;
@@ -37,6 +38,8 @@ public class Room {
 		entities.add(player);
 	}
 	
+	public int lightLevel = 0;
+	
 	public void render(Screen screen){
 		for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
@@ -49,11 +52,12 @@ public class Room {
 			e.render(screen, this);
 		}
 		
-		for(int i = 0; i < 2; i++){
+		for(int i = 0; i < 1; i++){
 			Bitmap b = new Bitmap(screen.width, screen.height);
 			for(Light l : lights){
-				b.renderLight(l.x, l.y , l.rad+i*32);
+				b.renderLight(l.x, l.y , l.rad+16);
 			}
+			if(lightLevel != 0)b.fill(0, 0, screen.width, screen.height, lightLevel);
 			screen.overlay(b, 0, 0, 0, i*20+50);
 		}
 		lights.clear();
@@ -64,6 +68,8 @@ public class Room {
 			msg = "TELEPORT TO THE NEXT ROOM";
 			screen.draw(msg, (int) (screen.width/2-msg.length()*3.5), screen.height-7, 0xbcffbc, 1);
 		}
+		for(int i = 0; i < 25; i++)screen.draw(Asset.gui, 2+i*9, 2, 8, 0, 8, 20);
+		for(int i = 0; i < player.health; i++)screen.draw(Asset.gui, 2+i*9, 2, 0, 0, 8, 20);
 	}
 
 	public Tile getTile(int xt, int yt) {
@@ -97,6 +103,7 @@ public class Room {
         }
 
 		if(enemies == 0){
+			if(lightLevel < 100)lightLevel++;
 			if(time % 2 == 0){
 				if(getTile((int)player.x/24, (int)player.y/24) == Tile.teleporter){
 					player.teleportDelay--;

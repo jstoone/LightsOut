@@ -27,14 +27,24 @@ public class RoomGenerator {
         int xo = 1;
         int yo = 1;
         if(corner == 1){
-            xo = Room.w - 4;
+        	xo = Room.w - 4;
         } else if(corner == 2){
-            xo = Room.w - 4;
-            yo = Room.h - 4;
+        	xo = Room.w - 4;
+        	yo = Room.h - 4;
         } else if(corner == 3){
-            yo = Room.h - 4;
+        	yo = Room.h - 4;
         }
-        
+
+        for(int xl = 0; xl < 2; xl++){
+        	for(int yl = 0; yl < 2; yl++){
+        		if(random.nextInt(3)==0){
+        			room.tiles[xl*13 + 3 + (yl*6+3) * Room.w] = Tile.lightOn.id;
+        		}else if(random.nextInt(3)==0){
+        			room.tiles[xl*13 + 3 + (yl*6+3) * Room.w] = Tile.lightOff.id;
+        		}
+        	}
+        }
+
         for(int x = 0; x < 3; x++){
             for(int y = 0; y < 3; y++){
                 room.tiles[(x + xo)+(y + yo)*Room.w] = Tile.teleporter.id;
@@ -47,15 +57,7 @@ public class RoomGenerator {
         room.entities.add(new Werewolf(200, 200));
         room.entities.add(new Werewolf(300, 200));
         
-        for(int xl = 0; xl < 4; xl++){
-        	 for(int yl = 0; yl < 2; yl++){
-             	if(random.nextInt(3)==0){
-             		room.tiles[xl*4 + 2 + (yl*4+3) * Room.w] = Tile.lightOn.id;
-             	}else if(random.nextInt(3)==0){
-             		room.tiles[xl*2 + 6 + (yl*4+3) * Room.w] = Tile.lightOff.id;
-             	}
-             }
-        }
+        
 		return room;
 	}
 }
