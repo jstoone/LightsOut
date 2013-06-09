@@ -39,7 +39,7 @@ public class WinMenu extends Menu{
 	public int time;
 
 	public void render(Screen screen) {
-		if(time % 2== 0)screen.fill(0, 0, screen.width, screen.height, 0, 1);
+		if(time % 2== 0)screen.fill(0, 0, screen.width, screen.height, 0, 5);
 		
 		screen.drawRotated(Asset.titleBack, (screen.width-480)/2, (screen.height-480)/2, 0, 0, Asset.titleBack.width, Asset.titleBack.height, time/3);
 		
