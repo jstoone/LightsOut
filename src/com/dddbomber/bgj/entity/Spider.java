@@ -66,7 +66,13 @@ public class Spider extends Enemy{
 		y += ym;
 		for(Entity e : level.entities){
 			if(e != this && e.solid && e.x+e.xSize >= x && e.y+e.ySize >= y && e.x <= x+xSize && e.y <= y+ySize){
-				if(this.intersects(e))canPass = false;
+				if(this.intersects(e)){
+					canPass = false;
+					if(e == level.player && this.seenPlayer){
+						level.player.damage(0, 0);
+						removed = true;
+					}
+				}
 			}
 		}
 		x -= xm;

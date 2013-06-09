@@ -22,7 +22,7 @@ public class Werewolf extends Enemy{
 		ySize = 20;
 		solid = true;
 		
-		health = 10;
+		health = 15;
 	}
 
 	public int anim, animDelay, clawAnim;
@@ -52,8 +52,8 @@ public class Werewolf extends Enemy{
 				angleTo+=0.06;
 			}
 
-			double xm = Math.sin(angleTo)*0.75;
-			double ym = Math.cos(angleTo)*0.75;
+			double xm = Math.sin(angleTo)*1.0;
+			double ym = Math.cos(angleTo)*1.0;
 			
 			if(canPass(room, xm, 0)){
 				x += xm;
