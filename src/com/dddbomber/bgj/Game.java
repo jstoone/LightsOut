@@ -151,7 +151,7 @@ public class Game extends Canvas implements Runnable{
 		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
-		Sound.song.loop()
+		Sound.song.loop();
 	}
 	
 	public void stop() {
